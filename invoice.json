@@ -1,0 +1,82 @@
+{
+  "name": "Invoice",
+  "plural": "Invoices",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "fromCustomer": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "toCustomer": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "amount": {
+      "type": "number",
+      "required": true
+    },
+    "insertTime": {
+      "type": "date",
+      "required": true
+    },
+    "updateTime": {
+      "type": "date"
+    },
+    "expirationDate": {
+      "type": "date"
+    },
+    "status": {
+      "type": "string"
+    },
+    "messageSender": {
+      "type": "string"
+    },
+    "messageReciever": {
+      "type": "string"
+    },
+    "transactionHash": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "listSent"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "listIncomming"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "sendInvoice"
+    }
+  ],
+  "methods": {},
+  "mixins": {
+    "DisableAllMethods": {
+      "expose": [
+        "test",
+        "sendInvoice",
+        "listIncomming",
+        "listSent",
+        "reject",
+        "payInvoice"
+      ]
+    }
+  }
+}
